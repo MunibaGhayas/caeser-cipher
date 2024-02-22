@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Caeser Cipher</title>
+</head>
+<body>
+    <div>
+        <h1 class="heading">Caesar Cipher Implementation</h1>
+        <div class="box1">
+            <form class="form">
+                <div class="mt-3">
+                  <label for="plainTextarea" class="form-label">Plain Text</label>
+                  <textarea class="form-control" id="plainTextarea" placeholder="Enter here" required></textarea>
+                </div>
+                <button type="button" class="btn1" onclick="encryptedText()">Encrypt</button>
+                <div class="mt-3">
+                    <label for="cipherTextarea" class="form-label">Cipher Text</label>
+                    <textarea class="form-control" id="cipherTextarea" readonly  required></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="box2">
+            <form class="form">
+                <div class="mt-3">
+                  <label for="cipherText" class="form-label">Cipher Text</label>
+                  <textarea class="form-control" id="cipherText" placeholder="Enter here" required></textarea>
+                </div>
+                <button type="button" class="btn1" onclick="decryptedText()">Decrypt</button>
+                <div class="mt-3">
+                    <label for="plainText" class="form-label">Plain Text</label>
+                    <textarea class="form-control" id="plainText" readonly  required></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        let encryptText = "";
+        function encryptedText() {
+            const array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+                "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+            const plainText = document.getElementById("plainTextarea").value;
+            encryptText = "";
+            for (let i = 0; i < plainText.length; i++) {
+                let char = plainText[i];
+                if(char === " "){
+                    encryptText += " ";
+                } else{
+                    let letter = plainText[i].toUpperCase();
+                    if (array.includes(letter)) {
+                       const newIndex = (array.indexOf(letter) + 3) % 26;
+                       encryptText += array[newIndex];
+                    }
+                }
+                    
+            }
+            if(encryptText.length > 0){
+                document.getElementById("cipherTextarea").value = encryptText;
+
+            }
+        }
+            
+        let decryptText = "";
+        function decryptedText() {
+            const array = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N",
+                "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+
+            const cipherText = document.getElementById("cipherText").value;
+            decryptText = "";
+            for (let i = 0; i < cipherText.length; i++) {
+                let char = cipherText[i];
+                if(char === " "){
+                    decryptText += " ";
+                } else{
+                    let letter = cipherText[i].toUpperCase();
+                    if (array.includes(letter)) {
+                       const newIndex = (array.indexOf(letter) - 3 + 26) % 26;
+                       decryptText += array[newIndex];
+                    }
+                }      
+            }
+            if(decryptText.length > 0){
+                document.getElementById("plainText").value = decryptText;
+            }
+        }         
+
+    </script>
+</body>
+
+</html>
